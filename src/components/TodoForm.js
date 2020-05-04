@@ -16,10 +16,9 @@ class TodoForm extends React.Component {
             {
                 keyword: e.target.value
             },
-            console.log(this.state.keyword)
+            //console.log(this.state.keyword)
             )
     }
-
 
 
 
@@ -35,7 +34,6 @@ class TodoForm extends React.Component {
                 />
 
                 <button>Add To-Do</button>
-                <button>Clear Purchased</button>
 
             </form>
         )
