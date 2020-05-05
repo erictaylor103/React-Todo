@@ -1,8 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
+import "./styles.css";
 
 
 const itemList = [
@@ -46,7 +46,31 @@ class App extends React.Component {
     });
   };
 
-  toggleItem = () =>{
+  toggleItem = clickedId => {
+    const newitemList = this.state.itemList.map(item => {
+      if(item.id === clickedId){
+        return{
+          ...item,
+          completed: !item.completed
+        };
+      }else{
+        return item;
+      }
+    });
+
+    //update state with the new array
+    this.setState({
+      itemList: newitemList
+    });
+  };
+  //filter out the items that are not completed(false) and set the itemList state to the items 
+  //that are not completed(false)
+  clearTodo = e => {
+    e.preventDefault();
+    const completedItemList = this.state.itemList.filter(item => !item.completed);
+		this.setState({
+      itemList: completedItemList 
+    });console.log(completedItemList);
     
   }
 
@@ -55,9 +79,15 @@ class App extends React.Component {
       <div className="App">
         <div className="header">
           <h1>To-Do List</h1>
-          <TodoForm addItem={this.addItem} />
+          <TodoForm 
+          addItem={this.addItem} 
+          />
         </div>
-        <TodoList itemList={this.state.itemList} />
+        <TodoList 
+        itemList={this.state.itemList} 
+        toggleItem={this.toggleItem}
+        clearTodo={this.clearTodo}
+        />
       </div>
     );
   }
